@@ -60,8 +60,8 @@ module ModalHeading = {
 
     <div
       className={`!p-4 ${headBgClass !== ""
-          ? headBgClass
-          : "bg-jp-gray-200 dark:bg-jp-gray-darkgray_background"} rounded-t-lg z-10  w-full  m-0 md:!pl-6  ${headingClass} ${borderClass} `}>
+          ? "bg-white"
+          : "bg-jp-gray-200 dark:bg-jp-gray-darkgray_background"} rounded-t-2xl z-10  w-full  m-0 md:!pl-6  ${headingClass} ${borderClass} `}>
       {switch leftHeadingIcon {
       | Some(icon) =>
         <div className="fill-current flex-col justify-between h-0 bg-jp-gray-100">
@@ -130,7 +130,7 @@ module ModalContent = {
     <div
       id="neglectTopbarTheme"
       onClick=handleContainerClick
-      className={`border border-jp-gray-500 dark:border-jp-gray-900 ${bgClass} shadow rounded-lg dark:text-opacity-75 dark:bg-jp-gray-darkgray_background ${modalClass} ${customHeight}`}>
+      className={`border border-jp-gray-500 dark:border-jp-gray-900 ${bgClass} shadow rounded-2xl dark:text-opacity-75 dark:bg-jp-gray-darkgray_background ${modalClass} ${customHeight}`}>
       children
     </div>
   }
@@ -207,7 +207,7 @@ let make = (
   ~leftHeadingIcon=?,
   ~rightHeading=?,
   ~onBackClick=_ => (),
-  ~headBgClass="bg-white dark:bg-jp-gray-darkgray_background",
+  ~headBgClass="bg-blue-900 dark:bg-jp-gray-darkgray_background",
   ~revealFrom=Reveal.Top,
   ~modalHeadingDescriptionElement=React.null,
   ~onCloseClickCustomFun=_ => (),

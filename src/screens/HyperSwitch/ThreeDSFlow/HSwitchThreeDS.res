@@ -16,7 +16,7 @@ module ActiveRulePreview = {
       ->AdvancedRoutingUtils.ruleInfoTypeMapper
 
     <UIUtils.RenderIf condition={initialRule->Belt.Option.isSome}>
-      <div className="relative flex flex-col gap-6 w-full border p-6 bg-white rounded-md">
+      <div className="relative flex flex-col gap-6 w-full shadow-sma p-6 bg-white rounded-2xl">
         <div
           className="absolute top-0 right-0 bg-green-800 text-white py-2 px-4 rounded-bl font-semibold">
           {"ACTIVE"->React.string}
@@ -266,7 +266,7 @@ let make = () => {
       />
       {switch pageView {
       | NEW =>
-        <div className="w-full border p-8 bg-white rounded-md ">
+        <div className="w-full shadow-sma p-8 bg-white rounded-2xl ">
           <Form initialValues validate formClass="flex flex-col gap-6 justify-between" onSubmit>
             <BasicDetailsForm formState setFormState isThreeDs=true />
             <Configure3DSRule wasm />
@@ -287,9 +287,9 @@ let make = () => {
           </Form>
         </div>
       | LANDING =>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 shadow-md">
           <ActiveRulePreview initialRule />
-          <div className="w-full border p-6 flex flex-col gap-6 bg-white rounded-md">
+          <div className="w-full  p-6 flex flex-col gap-6 bg-white rounded-2xl">
             <p className="text-base font-semibold text-grey-700">
               {"Configure 3DS Rule"->React.string}
             </p>

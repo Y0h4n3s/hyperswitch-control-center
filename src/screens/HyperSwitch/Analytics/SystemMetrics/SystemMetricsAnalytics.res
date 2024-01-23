@@ -47,7 +47,7 @@ module APITableInfo = {
 
     <>
       <div
-        className="underline underline-offset-4 font-medium cursor-pointer"
+        className="underline underline-offset-4 font-medium cursor-pointer rounded-full"
         onClick={_ => setShowModal(_ => !showModal)}>
         {"API endpoints"->React.string}
       </div>
@@ -56,7 +56,7 @@ module APITableInfo = {
         modalHeading="API endpoints"
         showModal
         setShowModal
-        modalClass="w-full max-w-md mx-auto md:mt-44 ">
+        modalClass="w-full max-w-md rounded-2xl mx-auto md:mt-44 ">
         <div>
           <div className="mb-3">
             {"API endpoints subject to performance metrics monitoring."->React.string}
@@ -64,7 +64,9 @@ module APITableInfo = {
           <div className="h-96 overflow-scroll show-scrollbar">
             {apis
             ->Array.map(path =>
-              <div className="bg-gray-100 p-2 mb-1 rounded mr-2"> {`/${path}`->React.string} </div>
+              <div className="bg-gray-100 p-2 mb-1 rounded-2xl mr-2">
+                {`/${path}`->React.string}
+              </div>
             )
             ->React.array}
           </div>
@@ -177,10 +179,11 @@ module HSiwtchPaymentConfirmLatency = {
         <Shimmer styleClass="w-full h-28" />
       </div>
     } else {
-      <div className="mt-4 w-full">
+      <div className="mt-4 w-full rounded-2xl">
         <div
-          className={`h-full flex flex-col border rounded dark:border-jp-gray-850 bg-white dark:bg-jp-gray-lightgray_background overflow-hidden singlestatBox p-4 mr-4`}>
-          <div className="px-4 pb-4 pt-1 flex flex-col justify-between h-full gap-auto">
+          className={`h-full flex flex-col border rounded-2xl dark:border-jp-gray-850 bg-red-900 dark:bg-jp-gray-lightgray_background overflow-hidden singlestatBox p-4 mr-4`}>
+          <div
+            className="px-4 pb-4 pt-1 flex flex-col justify-between h-full gap-auto roundede-2xl">
             <div className="flex flex-row h-1/2 items-end">
               <div className="font-bold text-3xl">
                 {latencyShortNum(

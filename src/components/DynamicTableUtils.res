@@ -224,7 +224,7 @@ module TableLoadingErrorIndicator = {
   ) => {
     let isMobileView = MatchMedia.useMobileChecker()
     let filtersBorder = if !isMobileView && showFilterBorder {
-      "p-2 bg-white dark:bg-black border border-jp-2-light-gray-400 rounded-lg"
+      "p-2 bg-white dark:bg-black shadow-sma rounded-2xl"
     } else {
       ""
     }

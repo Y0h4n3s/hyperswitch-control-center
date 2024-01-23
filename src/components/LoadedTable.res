@@ -21,7 +21,7 @@ let checkBoxPropDefaultVal: checkBoxProps = {
 
 let sortAtom: Recoil.recoilAtom<Js.Dict.t<sortOb>> = Recoil.atom(. "sortAtom", Dict.make())
 
-let backgroundClass = "bg-gray-50 dark:bg-jp-gray-darkgray_background"
+let backgroundClass = "bg-transparent dark:bg-jp-gray-darkgray_background"
 
 let useSortedObj = (title: string, defaultSort) => {
   let (dict, setDict) = Recoil.useRecoilState(sortAtom)
@@ -181,7 +181,7 @@ let make = (
   ~renderCard=?,
   ~tableLocalFilter=false,
   ~tableheadingClass="",
-  ~tableBorderClass="",
+  ~tableBorderClass="rounded-2xl",
   ~tableDataBorderClass="",
   ~collapseTableRow=false,
   ~getRowDetails=?,
@@ -846,7 +846,7 @@ let make = (
         | Card =>
           switch renderCard {
           | Some(renderer) =>
-            <div className="overflow-auto flex flex-col">
+            <div className="overflow-auto flex flex-col rounded-2xl">
               {paginatedData
               ->Belt.Array.keepMap(Js.Nullable.toOption)
               ->Array.mapWithIndex((item, rowIndex) => {
@@ -864,7 +864,8 @@ let make = (
   } else if totalResults === 0 && !tableDataLoading {
     let noDataTable = switch dataNotFoundComponent {
     | Some(comp) => comp
-    | None => <NoDataFound customCssClass={"my-6"} message=noDataMsg renderType=Painting />
+    | None =>
+      <NoDataFound customCssClass={"my-6 rounded-2xl"} message=noDataMsg renderType=Painting />
     }
     (noDataTable, React.null)
   } else {
@@ -873,7 +874,7 @@ let make = (
 
   let tableActionBorder = if !isMobileView {
     if showFilterBorder {
-      "p-2 bg-white dark:bg-black border border-jp-2-light-gray-400 rounded-lg"
+      "p-2 bg-white dark:bg-black shadow-sma rounded-2xl"
     } else {
       ""
     }
@@ -968,7 +969,7 @@ let make = (
         <div
           className={`flex flex-row mobile:flex-wrap items-center ${tableActionBorder} ${filtersOuterMargin}`}>
           <TableFilterSectionContext isFilterSection=true>
-            <div className={`flex-1 ${tableDataBackgroundClass}`}>
+            <div className={`flex-1 rounded-2xl ${tableDataBackgroundClass}`}>
               {switch filters {
               | Some(filterSection) =>
                 filterSection->React.Children.map(element => {

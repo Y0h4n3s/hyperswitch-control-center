@@ -6,7 +6,7 @@ let make = (
   ~screenState: viewType,
   ~customUI=?,
   ~sectionHeight="h-80-vh",
-  ~customStyleForDefaultLandingPage="",
+  ~customStyleForDefaultLandingPage="rounded-2xl",
   ~customLoader=?,
 ) => {
   switch screenState {
@@ -21,7 +21,7 @@ let make = (
   | Error(_err) =>
     <DefaultLandingPage
       title="Oops, we hit a little bump on the road!"
-      customStyle={`py-16 !m-0 ${customStyleForDefaultLandingPage} ${sectionHeight}`}
+      customStyle={`py-16 !m-0 rounded-2xl ${customStyleForDefaultLandingPage} ${sectionHeight}`}
       overriddingStylesTitle="text-2xl font-semibold"
       buttonText="Refresh"
       overriddingStylesSubtitle="!w-3/4"

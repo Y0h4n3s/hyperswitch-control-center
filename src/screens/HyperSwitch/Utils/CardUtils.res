@@ -6,10 +6,10 @@ module CardHeader = {
       | Some(icon) => <img className="h-6 inline-block align-top" src={`/icons/${icon}.svg`} />
       | None => React.null
       }}
-      <div>
+      <div className="">
         <div className="text-xl font-semibold"> {heading->React.string} </div>
         <div
-          className={`text-md font-medium leading-7 opacity-50 mt-2 w-full max-w-sm ${customSubHeadingStyle}`}>
+          className={`text-md font-normal leading-7 opacity-50 mt-2 w-full max-w-sm ${customSubHeadingStyle}`}>
           {subHeading->React.string}
         </div>
       </div>
@@ -26,9 +26,9 @@ module CardFooter = {
 
 module CardLayout = {
   @react.component
-  let make = (~width="w-1/2", ~children, ~customStyle="") => {
+  let make = (~width="w-1/2", ~children, ~customStyle="rounded-2xl") => {
     <div
-      className={`relative bg-white ${width} border p-6 rounded flex flex-col justify-between ${customStyle}`}>
+      className={`relative bg-white ${width} shadow-sma rounded-2xl p-6  flex flex-col justify-between ${customStyle}`}>
       children
     </div>
   }

@@ -191,7 +191,7 @@ module ApiKeyAddBtn = {
         )}
         text="Create New API Key"
         buttonType=Secondary
-        buttonSize=Small
+        buttonSize=Medium
         onClick={_ => {
           mixpanelEvent(~eventName="create_new_api_key", ())
           setShowModal(_ => true)
@@ -351,9 +351,9 @@ module ApiKeysTable = {
     )
 
     <PageLoaderWrapper screenState>
-      {<div className="relative mt-10 md:mt-0">
+      {<div className="relative mt-2 md:mt-0 rounded-2xl">
         <h2
-          className="font-bold absolute top-0 md:top-10 left-0 text-xl pb-3 text-black text-opacity-75 dark:text-white dark:text-opacity-75">
+          className="font-bold absolute top-0 md:top-10 left-0 text-xl  text-black text-opacity-75 dark:text-white dark:text-opacity-75">
           {"API Keys"->React.string}
         </h2>
         <LoadedTable
@@ -367,7 +367,7 @@ module ApiKeysTable = {
           offset
           setOffset
           currrentFetchCount={data->Array.length}
-          tableActions={<div className="mt-5">
+          tableActions={<div className=" mt-5">
             <ApiKeyAddBtn getAPIKeyDetails />
           </div>}
         />

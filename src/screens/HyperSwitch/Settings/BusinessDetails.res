@@ -138,7 +138,7 @@ let make = () => {
           )
         }}>
         <div
-          className="flex flex-col md:flex-row justify-between bg-white p-7 gap-8 rounded-sm border border-jp-gray-border_gray">
+          className="flex flex-col md:flex-row justify-between bg-white p-7 gap-8 rounded-2xl shadow-sma">
           <div className="w-full flex flex-col gap-5 md:gap-10">
             {renderingArray
             ->Array.mapWithIndex((details, i) =>
@@ -153,7 +153,7 @@ let make = () => {
               onClick={_ => setFormState(_ => Edit)}
               buttonType=Primary
               buttonSize={Small}
-              customButtonStyle="rounded-sm"
+              customButtonStyle="rounded-full"
             />
           | Edit =>
             <div className="!flex !items-start gap-4">
@@ -162,7 +162,7 @@ let make = () => {
                 onClick={_ => setFormState(_ => Preview)}
                 buttonType={Secondary}
                 buttonSize={Small}
-                customButtonStyle="rounded-sm"
+                customButtonStyle="rounded-full"
               />
               <div className="!flex !items-start">
                 <FormRenderer.SubmitButton
@@ -170,7 +170,7 @@ let make = () => {
                   buttonType=Primary
                   buttonSize={Small}
                   disabledParamter={isDisabled}
-                  customSumbitButtonStyle="rounded-sm"
+                  customSumbitButtonStyle="rounded-full"
                 />
               </div>
             </div>

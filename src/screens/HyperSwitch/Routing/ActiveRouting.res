@@ -6,7 +6,7 @@ module TopLeftIcons = {
   @react.component
   let make = (~routeType: routingType) => {
     switch routeType {
-    | PRIORITY | DEFAULTFALLBACK => <Icon name="fallback" size=25 className="w-11" />
+    | PRIORITY | DEFAULTFALLBACK => <Icon name="fallback" size=25 className="w-11 rounded-2xl" />
     | VOLUME_SPLIT => <Icon name="processorLevel" size=25 className="w-14" />
     | ADVANCED => <Icon name="parameterLevel" size=25 className="w-20" />
     | COST => <Icon name="costLevel" size=25 className="w-14" />
@@ -116,10 +116,10 @@ module ActiveSection = {
     let profileId = activeRouting->getDictFromJsonObject->getString("profile_id", "")
 
     <div
-      className="relative flex flex-col flex-wrap bg-white border rounded w-full px-6 py-10 gap-12">
+      className="relative flex flex-col flex-wrap bg-white shadow-sma rounded-2xl w-full px-6 py-10 gap-12">
       <div>
         <div
-          className="absolute top-0 left-0 bg-green-800 text-white py-2 px-4 rounded-br font-semibold">
+          className="absolute top-0 left-0 bg-green-800 text-white py-2 px-4 rounded-tl-2xl rounded-br-2xl font-semibold">
           {"ACTIVE"->React.string}
         </div>
         <div className="flex flex-col my-6 pt-4 gap-2">
@@ -174,13 +174,13 @@ module ActiveSection = {
 module LevelWiseRoutingSection = {
   @react.component
   let make = (~types: array<routingType>) => {
-    <div className="flex flex-col flex-wrap  rounded w-full py-6 gap-5">
+    <div className="flex flex-col flex-wrap  rounded-2xl w-full py-6 gap-5">
       <div className="flex flex-wrap justify-evenly gap-9 items-stretch">
         {types
         ->Array.mapWithIndex((value, index) =>
           <div
             key={index->string_of_int}
-            className="flex flex-1 flex-col  bg-white border rounded px-5 py-5 gap-8">
+            className="flex flex-1 flex-col  bg-white shadow-sma rounded-2xl px-5 py-5 gap-8">
             <div className="flex flex-1 flex-col gap-7">
               <div className="flex w-full items-center flex-wrap justify-between ">
                 <TopLeftIcons routeType=value />
@@ -206,7 +206,7 @@ module LevelWiseRoutingSection = {
 
 @react.component
 let make = (~routingType: array<Js.Json.t>) => {
-  <div className="mt-4 flex flex-col gap-6">
+  <div className="mt-4 flex flex-col gap-6 rounded-2xl">
     {routingType
     ->Array.mapWithIndex((ele, i) => {
       let id = ele->LogicUtils.getDictFromJsonObject->LogicUtils.getString("id", "")

@@ -225,7 +225,7 @@ let make = () => {
               </div>
               //sidebar and page
               <div className="flex relative overflow-auto h-screen">
-                <div className="flex overflow-auto h-screen">
+                <div className="flex overflow-auto h-full">
                   <Sidebar path={url.path} sidebars={hyperSwitchAppSidebars} />
                 </div>
                 <div

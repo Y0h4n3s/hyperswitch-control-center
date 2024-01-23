@@ -120,6 +120,19 @@ type entity = {
   sortingColumnLegend?: string,
   jsonTransformer?: (string, array<Js.Json.t>) => array<Js.Json.t>,
 }
+let chartDataLoadingIndicator = {
+  let padding = "py-8 rounded-2xl"
+  <div
+    className="border rounded-2xl  bg-white  border-jp-gray-500 dark:border-jp-gray-960 dark:bg-jp-gray-950">
+    <div
+      className={`h-[400px] flex flex-col ${padding} justify-center rounded-full space-x-2 items-center bg-white shadow-md dark:bg-jp-gray-lightgray_background dark:shadow-md`}>
+      <div className="animate-spin mb-4">
+        <Icon name="spinner" />
+      </div>
+      <div className="text-gray-500"> {React.string("Loading...")} </div>
+    </div>
+  </div>
+}
 
 let chartMapper = str => {
   switch str {
@@ -823,10 +836,9 @@ let make = (
         render={({handleSubmit}) => {
           <form onSubmit={handleSubmit}>
             <AddDataAttributes attributes=[("data-chart-segment", "Chart-1")]>
-              <div
-                className="border rounded  bg-white  border-jp-gray-500 dark:border-jp-gray-960 dark:bg-jp-gray-950 dynamicChart">
+              <div className="bg-white dynamicChart">
                 <div
-                  className={`flex flex-row border-b w-full border-jp-gray-500 dark:border-jp-gray-960 dark:bg-jp-gray-950 text-gray-500 px-4 py-2 ${metricPickerdisplayClass}`}>
+                  className={`flex flex-row w-full text-gray-500 px-4 py-2 ${metricPickerdisplayClass}`}>
                   <div className="w-3/4 flex justify-between">
                     <div>
                       <SelectBox

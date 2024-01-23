@@ -11,11 +11,11 @@ module TableFilterRow = {
     ~showCheckbox,
   ) => {
     let colsLen = item->Array.length
-    let borderColor = "border-jp-gray-light_table_border_color dark:border-jp-gray-960"
+    let borderColor = "dark:border-jp-gray-960"
     let paddingClass = "px-4 py-3"
     let hoverClass = "hover:bg-jp-gray-table_hover dark:hover:bg-jp-gray-table_hover_dark"
     <tr
-      className={`filterColumns group rounded-md h-10 bg-white dark:bg-jp-gray-lightgray_background ${hoverClass} transition duration-300 ease-in-out text-fs-13 text-jp-gray-900 text-opacity-75 dark:text-jp-gray-text_darktheme dark:text-opacity-75 ${customFilterRowStyle}`}>
+      className={`filterColumns group rounded-2xl h-10 bg-white dark:bg-jp-gray-lightgray_background ${hoverClass} transition duration-300 ease-in-out text-fs-13 text-jp-gray-900 text-opacity-75 dark:text-jp-gray-text_darktheme dark:text-opacity-75 ${customFilterRowStyle}`}>
       {if showCheckbox {
         <td />
       } else {
@@ -25,7 +25,7 @@ module TableFilterRow = {
       ->Array.mapWithIndex((obj: filterRow, cellIndex) => {
         let isLast = cellIndex === colsLen - 1
         let showBorderTop = true
-        let borderTop = showBorderTop ? "border-t" : "border-t-0"
+        let borderTop = showBorderTop ? "" : "border-t-0"
         let borderClass = if removeHorizontalLines && removeVerticalLines {
           ""
         } else if isLast {
@@ -37,8 +37,8 @@ module TableFilterRow = {
         }
         <td
           key={string_of_int(cellIndex)}
-          className={`align-top ${borderClass} ${tableDataBorderClass}`}>
-          <div className={`box-border ${paddingClass}`}>
+          className={`rounded-2xl align-top ${borderClass} ${tableDataBorderClass}`}>
+          <div className={` ${paddingClass}`}>
             <TableFilterCell cell=obj />
           </div>
         </td>
@@ -77,7 +77,7 @@ module TableRow = {
     ~isEllipsisTextRelative=true,
     ~customMoneyStyle="",
     ~ellipseClass="",
-    ~selectedRowColor="bg-white dark:bg-jp-gray-lightgray_background",
+    ~selectedRowColor="bg-white rounded-2xl dark:bg-jp-gray-lightgray_background",
     ~lastColClass="",
     ~fixLastCol=false,
     ~alignCellContent="",
@@ -128,15 +128,17 @@ module TableRow = {
         }
       })
       ->Belt.Option.isSome
-    let bgColor = coloredRow ? selectedRowColor : "bg-white dark:bg-jp-gray-lightgray_background"
+    let bgColor = coloredRow
+      ? selectedRowColor
+      : "bg-white rounded-2xl dark:bg-jp-gray-lightgray_background"
     let fontSize = "text-fs-13"
-    let fontWeight = ""
-    let textColor = "text-jp-gray-900  dark:text-jp-gray-text_darktheme dark:text-opacity-75"
-    let hoverClass = "hover:bg-jp-gray-table_hover dark:hover:bg-jp-gray-table_hover_dark"
+    let fontWeight = "font-normal"
+    let textColor = "text-grey-950  dark:text-jp-gray-text_darktheme dark:text-opacity-75"
+    let hoverClass = "dark:hover:bg-jp-gray-table_hover_dark"
     let tableBodyText = if isHighchartLegend {
-      `group rounded-md ${cursorClass} text-fs-10 font-medium dark:text-jp-gray-dark_chart_legend_text jp-gray-light_chart_legend_text pb-4 whitespace-nowrap text-ellipsis overflow-x-hidden`
+      `group rounded-2xl ${cursorClass} text-fs-10 font-normal dark:text-jp-gray-dark_chart_legend_text jp-gray-light_chart_legend_text pb-4 whitespace-nowrap text-ellipsis overflow-x-hidden`
     } else {
-      `group rounded-md ${cursorClass} ${bgColor} ${fontSize} ${fontWeight} ${rowCustomClass} ${textColor} ${hoverClass} transition duration-300 ease-in-out`
+      `group rounded-2xl ${cursorClass} ${bgColor} ${fontSize} ${fontWeight} ${rowCustomClass} ${textColor} ${hoverClass} transition duration-300 ease-in-out`
     }
     <>
       <tr
@@ -167,8 +169,8 @@ module TableRow = {
 
           let highlightCell = highlightEnabledFieldsArray->Array.includes(cellIndex)
           let highlightClass = highlightCell ? "hover:font-bold" : ""
-          let borderColor = "border-jp-gray-light_table_border_color dark:border-jp-gray-960"
-          let borderTop = showBorderTop ? "border-t" : "border-t-0"
+          let borderColor = " dark:border-jp-gray-960"
+          let borderTop = showBorderTop ? "border-b" : "border-t-0"
           let borderClass = if removeHorizontalLines && removeVerticalLines {
             ""
           } else if isLast {
@@ -180,8 +182,7 @@ module TableRow = {
           }
           let cursorI = cellIndex == 0 && collapseTableRow ? "cursor-pointer" : ""
           let isLast = cellIndex === colsLen - 1
-          let lastColProp =
-            isLast && fixLastCol ? "border-l h-full !py-0 flex flex-col justify-center" : ""
+          let lastColProp = isLast && fixLastCol ? "h-full !py-0 flex flex-col justify-center" : ""
           let tableRowBorderClass = if isHighchartLegend {
             `align-top ${highlightClass} ${tableDataBorderClass} ${cursorI} ${rowHeightClass}`
           } else if isLast {
@@ -360,24 +361,23 @@ module TableHeadingCell = {
     let headerBgColor =
       headerCustomBgColor->Belt.Option.isSome
         ? headerCustomBgColor->Belt.Option.getWithDefault("")
-        : "bg-gray-50 dark:bg-jp-gray-darkgray_background"
+        : "bg-gray-100 dark:bg-jp-gray-darkgray_background"
     let paddingClass = "px-4 py-3"
     let roundedClass = if isFirstCol {
-      "rounded-tl"
+      "rounded-tl-lg"
     } else if isLastCol {
-      "rounded-tr"
+      "rounded-tr-lg"
     } else {
       ""
     }
 
-    let headerTextClass = "text-jp-gray-900 text-opacity-75 dark:text-jp-gray-text_darktheme dark:text-opacity-75"
+    let headerTextClass = "text-grey-950 dark:text-jp-gray-text_darktheme dark:text-opacity-75"
     let fontWeight = "font-bold"
     let fontSize = "text-fs-13"
-    let lastColProp = isLastCol && fixLastCol ? "sticky right-0 !px-0 !py-0 z-20" : ""
-    let borderlastCol =
-      isLastCol && fixLastCol ? "border-l px-4 py-3 h-full justify-center !flex-col" : ""
+    let lastColProp = isLastCol && fixLastCol ? "rounded-2xl sticky right-0 !px-0 !py-0 z-20" : ""
+    let borderlastCol = isLastCol && fixLastCol ? " px-4 py-3 h-full justify-center !flex-col" : ""
     let tableHeaderClass = if isHighchartLegend {
-      `tableHeader ${lastColProp} p-0 pb-2 justify-between items-center dark:text-jp-gray-dark_chart_legend_text jp-gray-light_chart_legend_text text-opacity-75 dark:text-opacity-75 whitespace-pre select-none ${isLastCol
+      `tableHeader ${lastColProp} p-0 pb-2  justify-between items-center dark:text-jp-gray-dark_chart_legend_text jp-gray-light_chart_legend_text text-opacity-75 dark:text-opacity-75 whitespace-pre select-none ${isLastCol
           ? lastHeadingClass
           : ""}`
     } else {
@@ -830,15 +830,13 @@ let make = (
 
   let frozenTableWidthClass = isMobileView ? "w-48" : "w-auto"
 
-  let parentBoderColor = "border border-jp-gray-940 border-opacity-100 dark:border-jp-gray-960"
+  let parentBoderColor = ""
 
-  let boderColor = !showborderColor
-    ? ""
-    : "border border-jp-gray-940 border-opacity-50 dark:border-jp-gray-960"
+  let boderColor = !showborderColor ? "" : ""
 
   let frozenTable = {
     <table
-      className={`table-auto ${frozenTableWidthClass} ${parentBoderColor} rounded-lg ${tableBorderClass} ${stickCol}`}>
+      className={`table-auto ${frozenTableWidthClass} ${parentBoderColor} rounded-2xl ${tableBorderClass} ${stickCol}`}>
       <UIUtils.RenderIf condition=showHeading>
         {renderTableHeadingRow(frozenHeading, true, false, lastHeadingClass)}
       </UIUtils.RenderIf>
@@ -852,13 +850,13 @@ let make = (
   let totalLength = rowInfo->Array.length
 
   let customizeColumn = {
-    <table className={`table-auto rounded-lg sticky right-0 !px-0 !py-0 z-10`}>
+    <table className={`table-auto rounded-2xl sticky right-0 !px-0 !py-0 z-10`}>
       <UIUtils.RenderIf condition=showHeading>
         {renderTableHeadingRow(
           frozenCustomiseColumnHeading,
           true,
           true,
-          `${lastHeadingClass} rounded-tl-none rounded-tr-lg`,
+          `${lastHeadingClass} rounded-2xl`,
         )}
       </UIUtils.RenderIf>
       <tbody>
@@ -870,7 +868,7 @@ let make = (
   let tableBorderClass = if isHighchartLegend {
     `table-auto ${widthClass}`
   } else {
-    `table-auto ${widthClass} ${tableBorderClass} ${boderColor} rounded-lg`
+    `table-auto ${widthClass} ${tableBorderClass} ${boderColor} rounded-2xl`
   }
   let (lclFilterOpen, _) = React.useContext(DataTableFilterOpenContext.filterOpenContext)
 
@@ -893,8 +891,8 @@ let make = (
       : isMinHeightRequired
       ? ""
       : "overflow-scroll"
-  let parentBorderRadius = !isHighchartLegend ? "rounded-t-lg" : ""
-  let parentBorderClass = !isHighchartLegend ? "border border-jp-2-light-gray-300" : ""
+  let parentBorderRadius = !isHighchartLegend ? "rounded-2xl" : "rounded-2xl"
+  let parentBorderClass = !isHighchartLegend ? "" : ""
   <div
     className={`flex flex-row items-stretch ${scrollBarClass} loadedTable ${parentMinWidthClass} ${customBorderClass->Belt.Option.getWithDefault(
         parentBorderClass ++ " " ++ parentBorderRadius,

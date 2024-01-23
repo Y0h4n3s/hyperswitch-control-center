@@ -57,14 +57,14 @@ module BaseTableComponent = {
 
     let tableBorderClass = "border-collapse border border-jp-gray-940 border-solid border-2 rounded-sm border-opacity-30 dark:border-jp-gray-dark_table_border_color dark:border-opacity-30 mt-7"
 
-    <div className="flex flex-1 flex-col m-4">
+    <div className="flex flex-1 flex-col mb-4">
       <RefetchContextProvider value=refetch>
         {if tableDataLoading {
           <DynamicTableUtils.TableDataLoadingIndicator showWithData={true} />
         } else {
-          <div className="relative">
+          <div className="relative ">
             <div
-              className="absolute font-bold text-xl bg-white w-full text-black text-opacity-75 dark:bg-jp-gray-950 dark:text-white dark:text-opacity-75">
+              className="absolute font-bold text-xl  bg-white w-full text-black text-opacity-75 dark:bg-jp-gray-950 dark:text-white dark:text-opacity-75">
               {React.string("Summary Table")}
             </div>
             <LoadedTable
@@ -363,11 +363,11 @@ module TableWrapper = {
     setDefaultFilter(._ => dict->Js.Json.object_->Js.Json.stringify)
 
     showTable
-      ? <>
+      ? <div className="">
           <UIUtils.RenderIf condition={tableData->Array.length > 0}>
             <div
-              className="flex border items-start border-blue-800 text-sm rounded-md gap-2 px-4 py-3 mt-7">
-              <Icon name="info-vacent" className="text-blue-900 mt-1" size=18 />
+              className="flex border items-start border-blue-800 text-sm rounded-2xl gap-2 px-4 py-3 mt-7">
+              <Icon name="info-vacent" className="text-blue-800 mt-1" size=18 />
               {"'Other' denotes those incomplete or failed payments with no assigned values for the corresponding parameters due to reasons like customer drop-offs, technical failures, etc."->React.string}
             </div>
           </UIUtils.RenderIf>
@@ -388,7 +388,7 @@ module TableWrapper = {
               />
             </Form>
           </div>
-        </>
+        </div>
       : <Loader />
   }
 }
@@ -424,8 +424,9 @@ module TabDetails = {
 
     let wrapperClass = React.useMemo1(() =>
       switch analyticsType {
-      | USER_JOURNEY => `h-auto basis-full mt-4 ${isMobileView ? "w-full" : "w-1/2"}`
-      | _ => "bg-white border rounded p-8 mt-5 mb-7"
+      | USER_JOURNEY =>
+        `h-auto basis-full rounded-2xl mt-4 ${isMobileView ? "w-full" : "w-1/2 rounded-2xl"}`
+      | _ => "bg-blue shadow-sma rounded-2xl p-8 mt-5 mb-7"
       }
     , [isMobileView])
 
@@ -702,7 +703,7 @@ let make = (
     {switch chartEntity1 {
     | Some(chartEntity) =>
       <div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between">
           <PageUtils.PageHeading title=pageTitle subTitle=pageSubTitle />
           <UIUtils.RenderIf condition={generateReport}>
             {switch generateReportType {
@@ -732,7 +733,7 @@ let make = (
             | USER_JOURNEY =>
               switch (pieChartEntity, barChartEntity, funnelChartEntity) {
               | (Some(pieChartEntity), Some(barChartEntity), Some(funnelChartEntity)) =>
-                <div className="flex flex-col bg-transparent w-full h-max">
+                <div className="flex flex-col bg-white w-full h-max">
                   <div className={tabDetailsClass}>
                     <TabDetails
                       chartEntity={{...funnelChartEntity, moduleName: "UserJourneyFunnel"}}

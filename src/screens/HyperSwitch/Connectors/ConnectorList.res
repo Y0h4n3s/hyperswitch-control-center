@@ -98,7 +98,7 @@ module NewProcessorCards = {
 
               <div
                 key={i->string_of_int}
-                className="border p-6 gap-5 bg-white rounded-lg flex flex-col justify-between">
+                className=" p-6 gap-5 bg-white rounded-2xl shadow-sma flex flex-col justify-between">
                 <div className="flex flex-col gap-3 items-start">
                   <GatewayIcon gateway={connectorName->String.toUpperCase} className=size />
                   <p className={`${p1MediumTextStyle} break-all`}>
@@ -111,13 +111,13 @@ module NewProcessorCards = {
                 <Button
                   text="Connect"
                   buttonType={Transparent}
-                  customButtonStyle="group w-1/5"
+                  customButtonStyle=""
                   onClick={_ => handleClick(connectorName)}
                   leftIcon={CustomIcon(
                     <Icon
                       name="kd_plus_circle"
                       size=20
-                      className="group-hover:scale-125 cursor-pointer transition duration-200 ease-in-out"
+                      className="cursor-pointer transition duration-200 ease-in-out"
                     />,
                   )}
                 />

@@ -182,7 +182,9 @@ module QuickStart = {
         mixpanelEvent(~eventName=`quickstart_get_productuion_access`, ())
       }
 
-    <div className="flex flex-col md:flex-row pt-10 border rounded-md bg-white gap-4">
+    <div className="flex flex-col md:flex-row pt-10 shadow-sma rounded-2xl bg-white gap-4">
+      //Qucik start card
+      //card of quick start
       <div className="flex flex-col justify-evenly gap-8 pl-10 pb-10 pr-2 md:pr-0">
         <div className="flex flex-col gap-2">
           <p className={getTextClass(~textVariant=H2, ())}> {"Quick Start"->React.string} </p>
@@ -234,18 +236,14 @@ module RecipesAndPlugins = {
       <p className=headingStyle> {"Recipes & Plugins"->React.string} </p>
       <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
         <div
-          className={boxCssHover(~ishoverStyleRequired=!isStripePlusPayPalCompleted, ())}
+          className={boxCss}
           onClick={_ => {
             mixpanelEvent(~eventName=`stripe_plus_paypal`, ())
             RescriptReactRouter.push("stripe-plus-paypal")
           }}>
           <div className="flex items-center gap-2">
             <p className=cardHeaderTextStyle> {"Use PayPal with Stripe"->React.string} </p>
-            <Icon
-              name="chevron-right"
-              size=12
-              className="group-hover:scale-125 transition duration-200 ease-in-out"
-            />
+            <Icon name="chevron-right" size=12 className="" />
             <UIUtils.RenderIf condition={isStripePlusPayPalCompleted}>
               <div className="flex ">
                 <Icon name="success-tag" size=22 className="!w-32" />
@@ -260,7 +258,7 @@ module RecipesAndPlugins = {
           </div>
         </div>
         <div
-          className={boxCssHover(~ishoverStyleRequired=!isWooCommercePalCompleted, ())}
+          className={boxCss}
           onClick={_ => {
             mixpanelEvent(~eventName=`woocommerce`, ())
             RescriptReactRouter.push("woocommerce")
@@ -324,7 +322,7 @@ module Resources = {
           {elements
           ->Array.mapWithIndex((item, index) => {
             <div
-              className="group bg-white border rounded-lg p-10 flex flex-col gap-4 group-hover:shadow hover:shadow-homePageBoxShadow cursor-pointer"
+              className="bg-white shadow-sma p-10 flex flex-col gap-4 rounded-2xl cursor-pointer"
               key={index->string_of_int}
               onClick={_ => {
                 if item.id === "openSource" {

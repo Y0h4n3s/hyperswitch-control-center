@@ -57,11 +57,11 @@ module TabInfo = {
 
     let defaultThemeBasedClass = `${fontClass} px-6`
 
-    let defaultClasses = `font-semibold ${defaultThemeBasedClass} w-max flex flex-auto flex-row items-center justify-center text-body`
+    let defaultClasses = `font-medium ${defaultThemeBasedClass} w-max pb-2 flex flex-auto flex-row items-center justify-center text-body`
     let selectionClasses = if isSelected {
-      "font-semibold text-black"
+      "font-semibold text-blue-800"
     } else {
-      "text-jp-gray-700 dark:text-jp-gray-tabset_gray dark:text-opacity-75  hover:text-jp-gray-800 dark:hover:text-opacity-100 font-medium"
+      "text-grey-450 dark:text-jp-gray-tabset_gray dark:text-opacity-75  hover:text-blue-800 dark:hover:text-opacity-100 font-normal"
     }
     let handleClick = React.useCallback2(_ev => {
       handleSelectedTab(
@@ -81,7 +81,7 @@ module TabInfo = {
 
     let tabHeight = "47px"
 
-    let lineStyle = "bg-black w-full h-0.5 rounded-full"
+    let lineStyle = "bg-blue-800 w-full h-0.5 rounded-full"
 
     let crossIcon = switch isRemovable {
     | true =>
@@ -168,7 +168,7 @@ module TabInfo = {
       </div>
 
     <div
-      className={`flex flex-row cursor-pointer pt-0.5 pb-0 ${borderClass} ${bottomBorderColor} items-center`}
+      className={`flex flex-row cursor-pointer pt-0.5 pb-0 px-4 ${borderClass} ${bottomBorderColor} items-center`}
       style={ReactDOMStyle.make(~height=tabHeight, ())}>
       {tab}
     </div>
@@ -235,7 +235,7 @@ let make = (
   ~enableDescriptionHeader: bool=false,
   ~toolTipDescription="Add more tabs",
 ) => {
-  let eulerBgClass = "bg-jp-gray-100 dark:bg-jp-gray-darkgray_background"
+  let eulerBgClass = "bg-blue-800 dark:bg-jp-gray-darkgray_background"
   let bgClass = eulerBgClass
   // this tabs will always loaded independent of user preference
   let isMobileView = MatchMedia.useMobileChecker()
@@ -540,9 +540,9 @@ let make = (
 
   let wrapperStyle = ""
 
-  let addBtnStyle = `text-black cursor-pointer border-2 border-black-900 !px-4 !rounded-lg `
+  let addBtnStyle = `text-blue-800 cursor-pointer border-blue-900 !px-4 rounded-full `
 
-  let addBtnTextStyle = "text-md text-black !px-0 mx-0"
+  let addBtnTextStyle = "text-md text-blue-800 !px-0 mx-0"
   let headerTextClass = None
   <div className={isMobileView ? `sticky top-0 z-15 ${bgClass}` : ""}>
     <ErrorBoundary>

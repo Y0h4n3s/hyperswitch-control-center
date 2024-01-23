@@ -144,17 +144,20 @@ module SearchBarFilter = {
       checked: true,
     }
 
-    <div className="w-1/4 flex">
-      {InputFields.textInput(~input=inputSearch, ~placeholder, ~customStyle=`!h-10 w-full`, ())}
-      <Button
-        leftIcon={FontAwesome("search")}
-        buttonType={Secondary}
-        customButtonStyle="px-2 py-3 mt-2"
-        customIconSize=13
-        onClick={_ => {
-          setSearchVal(_ => searchValBase)
-        }}
-      />
+    <div className="px-4 w-80 flex">
+      {InputFields.textInput(
+        ~input=inputSearch,
+        ~placeholder,
+        ~inputStyle="flex w-120 inline gap-2 items-center bg-jp-gray-100 text-grey-500 font-normal justify-between px-4 py-2 rounded-full cursor-pointer",
+        ~customStyle=`!h-12 px-3`,
+        ~rightIcon=<Icon name="search" size=16 />,
+        ~rightIconOnClick={
+          _ => {
+            setSearchVal(_ => searchValBase)
+          }
+        },
+        (),
+      )}
     </div>
   }
 }

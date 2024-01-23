@@ -14,7 +14,7 @@ let make = (~remainingPath, ~previewOnly=false) => {
   let setCurrentTabName = Recoil.useSetRecoilState(RoutingUtils.currentTabNameRecoilAtom)
 
   let (widthClass, marginClass) = React.useMemo1(() => {
-    previewOnly ? ("w-full", "mx-auto") : ("w-full", "mx-auto ")
+    previewOnly ? ("w-full", "") : ("w-full", " ")
   }, [previewOnly])
 
   let tabs: array<Tabs.tab> = React.useMemo(() => {
@@ -28,7 +28,7 @@ let make = (~remainingPath, ~previewOnly=false) => {
             : <DefaultLandingPage
                 height="90%"
                 title="No Routing Rule Configured!"
-                customStyle="py-16"
+                customStyle="py-16 rounded-2xl shadow-sma"
                 overriddingStylesTitle="text-3xl font-semibold"
               />
         },

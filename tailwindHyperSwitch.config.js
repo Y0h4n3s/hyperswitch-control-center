@@ -349,6 +349,8 @@ module.exports = {
           200: "#B9BABC",
           300: "#8A8C8F",
           400: "#8A8C8F",
+          450: "#565656",
+
           500: "#8A8C8F",
           550: "#8A8C8F",
           600: "#808080",
@@ -579,6 +581,7 @@ module.exports = {
         boxShadowMultiple:
           "2px -2px 24px 0px rgba(0, 0, 0, 0.04), -2px 2px 24px 0px rgba(0, 0, 0, 0.02)",
         homePageBoxShadow: "0px 2px 16px 2px rgba(51, 51, 51, 0.16)",
+        sma: "0 1px 3px 0 rgb(0 0 0 / 0.05)",
       },
       gridTemplateColumns: {
         6: "repeat(6, minmax(0, 1fr))",

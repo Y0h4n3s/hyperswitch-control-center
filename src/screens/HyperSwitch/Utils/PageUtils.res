@@ -16,7 +16,7 @@ module PageHeading = {
       | Some(icon) => <Icon name={icon} size=56 />
       | None => React.null
       }}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <div className={`${headerTextStyle} pt-2 ${customTitleStyle}`}> {title->React.string} </div>
         <UIUtils.RenderIf condition=isTag>
           <div

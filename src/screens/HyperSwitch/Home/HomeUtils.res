@@ -20,8 +20,8 @@ let boxCssHover = (~ishoverStyleRequired, ()) =>
   `flex flex-col  bg-white border rounded-md pt-10 pl-10 gap-2 h-12.5-rem ${ishoverStyleRequired
       ? hoverStyle
       : ""}`
-let boxCss = "flex flex-col bg-white border rounded-md gap-4 p-10"
-let imageTransitionCss = "opacity-50 group-hover:opacity-100 transition ease-in-out duration-300"
+let boxCss = "flex flex-col bg-white shadow-sma rounded-2xl pt-10 pl-10 gap-2 h-12.5-rem cursor-pointer"
+let imageTransitionCss = "opacity-50 group-hover:opacity-100 transition ease-in-out duration-300 rounded-2xl"
 let cardHeaderTextStyle = `${cardHeaderText} text-grey-700`
 
 type resourcesTypes = {
@@ -130,7 +130,7 @@ module MerchantAuthInfo = {
         <div>
           <div className="font-semibold text-dark_black"> {"Merchant ID"->React.string} </div>
           <div className="flex items-center">
-            <div className="font-medium text-dark_black opacity-40">
+            <div className="font-normal text-sm text-dark_black opacity-40">
               {detail.merchant_id->React.string}
             </div>
             <CopyFieldValue fieldkey="merchant_id" />
@@ -140,7 +140,7 @@ module MerchantAuthInfo = {
           <div className="font-semibold text-dark_black"> {"Publishable Key"->React.string} </div>
           <div className="flex items-center">
             <div
-              className="font-medium text-dark_black opacity-40"
+              className="font-normal text-sm text-dark_black opacity-40"
               style={ReactDOMStyle.make(~overflowWrap="anywhere", ())}>
               {detail.publishable_key->React.string}
             </div>
@@ -237,12 +237,13 @@ module ControlCenter = {
           />
           <CardFooter>
             <Button
-              text="+  Connect"
+              text="  Connect"
               buttonType={Secondary}
               buttonSize={Small}
               onClick={_ => {
                 RescriptReactRouter.push("/connectors")
               }}
+              leftIcon={CustomIcon(<Icon name="kd_plus_circle" size=20 className="" />)}
             />
           </CardFooter>
         </CardLayout>

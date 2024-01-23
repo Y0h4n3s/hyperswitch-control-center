@@ -102,15 +102,18 @@ let make = (~previewOnly=false) => {
   })
 
   <ErrorBoundary>
-    <div className={`flex flex-col mx-auto h-full ${widthClass} ${heightClass} min-h-[50vh]`}>
-      <PageUtils.PageHeading
-        title="Payment Operations" subTitle="View and manage all payments" customTitleStyle
-      />
-      <div className="flex w-full justify-end pb-3 gap-3">
-        <GenerateSampleDataButton previewOnly getOrdersList={fetchOrders} />
-        <UIUtils.RenderIf condition={generateReport}>
-          <GenerateReport entityName={PAYMENT_REPORT} />
-        </UIUtils.RenderIf>
+    <div
+      className={`flex flex-col gap-10 mx-auto h-full ${widthClass} ${heightClass} min-h-[50vh]`}>
+      <div className="flex justify-between">
+        <PageUtils.PageHeading
+          title="Payment Operations" subTitle="View and manage all payments" customTitleStyle
+        />
+        <div className="pt-6">
+          <GenerateSampleDataButton previewOnly getOrdersList={fetchOrders} />
+          <UIUtils.RenderIf condition={generateReport}>
+            <GenerateReport entityName={PAYMENT_REPORT} />
+          </UIUtils.RenderIf>
+        </div>
       </div>
       <UIUtils.RenderIf condition={!previewOnly}> {filtersUI} </UIUtils.RenderIf>
       <PageLoaderWrapper screenState customUI>

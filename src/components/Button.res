@@ -78,7 +78,7 @@ let getBGColor = (
   | NonFilled =>
     switch buttonState {
     | Focused
-    | Normal => "hover:bg-blue-200 hover:bg-opacity-40 dark:hover:bg-jp-gray-950 dark:hover:bg-opacity-100 dark:text-jp-gray-text_darktheme dark:text-opacity-50 focus:outline-none"
+    | Normal => "bg-blue-400 rounded-full dark:hover:bg-jp-gray-950 dark:hover:bg-opacity-100 dark:text-jp-gray-text_darktheme dark:text-opacity-50 focus:outline-none"
     | Loading => "bg-jp-gray-200 dark:bg-jp-gray-800 dark:bg-opacity-10"
     | Disabled => "bg-jp-gray-300 dark:bg-jp-gray-950 dark:bg-opacity-50 border dark:border-jp-gray-disabled_border dark:border-opacity-50"
     | NoHover => "hover:bg-jp-gray-600 hover:bg-opacity-40 dark:hover:bg-jp-gray-950 dark:hover:bg-opacity-100 dark:text-jp-gray-text_darktheme focus:outline-none dark:text-opacity-50 text-opacity-50"
@@ -172,7 +172,7 @@ let getBGColor = (
   | Transparent =>
     switch buttonState {
     | Focused
-    | Normal => "bg-white   hover:bg-jp-gray-100 rounded-lg dark:bg-jp-gray-darkgray_background focus:outline-none"
+    | Normal => "bg-white   rounded-lg dark:bg-jp-gray-darkgray_background focus:outline-none"
     | Loading => "bg-gray-50   hover:bg-gray-200 focus:outline-none"
     | Disabled => "bg-gray-50   hover:bg-gray-200 dark:bg-jp-gray-darkgray_background focus:outline-none"
     | NoHover => "bg-gray-50   hover:bg-gray-200 focus:outline-none"
@@ -616,7 +616,7 @@ let make = (
     | FilterAdd => "border-0"
     | SelectTransparent => "border border-1 border-blue-900"
 
-    | Transparent => "border border-black"
+    | Transparent => "border border-grey-900"
     | Delete =>
       switch buttonState {
       | Disabled => ""

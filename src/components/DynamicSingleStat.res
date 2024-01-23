@@ -529,7 +529,7 @@ let make = (
       <div>
         <UIUtils.RenderIf condition={sectionName !== ""}>
           <div
-            className="mb-5 block pl-5 pt-5 not-italic font-bold text-fs-18 text-black dark:text-white">
+            className="mb-5  rounded-2xl block pl-5 pt-5 not-italic font-bold text-fs-18 text-black dark:text-white">
             {sectionName->React.string}
           </div>
         </UIUtils.RenderIf>

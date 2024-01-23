@@ -693,7 +693,7 @@ let singlestatDeltaTooltipFormat = (value: float, timeRanges: timeRanges, statTy
   } else {
     {React.string("")}
   }
-  <div className="p-2"> {tooltipComp} </div>
+  <div className="p-2 "> {tooltipComp} </div>
 }
 
 let sumOfArr = (arr: array<int>) => {
