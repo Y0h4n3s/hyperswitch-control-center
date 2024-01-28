@@ -85,7 +85,7 @@ let make = (
     }
     None
   }, [keyValue])
-
+  Js.log(clientSecret)
   <div className={`flex flex-col gap-12 h-full ${paymentStatusStyles}`}>
     {switch paymentStatus {
     | SUCCESS =>
