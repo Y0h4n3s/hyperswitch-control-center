@@ -39,7 +39,7 @@ let getTimeSeriesChart = (chartEntity: chartEntity) => {
       ~endDateTime=chartEntity.end_time,
       ~cardinality=chartEntity.cardinality,
       ~mode=chartEntity.mode,
-      ~customFilter=chartEntity.customFilter->Belt.Option.getWithDefault(""),
+      ~customFilter=chartEntity.customFilter->Option.getWithDefault(""),
       ~prefix=chartEntity.prefix,
       ~source=chartEntity.source,
       (),
@@ -63,7 +63,7 @@ let getLegendBody = (chartEntity: chartEntity) => {
       ~endDateTime=chartEntity.end_time,
       ~cardinality=chartEntity.cardinality,
       ~mode=chartEntity.mode,
-      ~customFilter=chartEntity.customFilter->Belt.Option.getWithDefault(""),
+      ~customFilter=chartEntity.customFilter->Option.getWithDefault(""),
       ~prefix=chartEntity.prefix,
       ~source=chartEntity.source,
       (),
@@ -342,8 +342,8 @@ let make = (
     ->Belt.Array.keepMap(item => {
       let (key, value) = item
       let keyArr = key->String.split(".")
-      let prefix = keyArr->Belt.Array.get(0)->Belt.Option.getWithDefault("")
-      let fitlerName = keyArr->Belt.Array.get(1)->Belt.Option.getWithDefault("")
+      let prefix = keyArr->Belt.Array.get(0)->Option.getWithDefault("")
+      let fitlerName = keyArr->Belt.Array.get(1)->Option.getWithDefault("")
 
       // when chart id is not there then there won't be any prefix so the prefix will the filter name
       if chartId === "" {
@@ -364,7 +364,7 @@ let make = (
     ->Belt.Array.keepMap(item => {
       let (key, value) = item
       let keyArr = key->String.split(".")
-      let prefix = keyArr->Belt.Array.get(0)->Belt.Option.getWithDefault("")
+      let prefix = keyArr->Belt.Array.get(0)->Option.getWithDefault("")
 
       if prefix === chartId && prefix !== "" {
         None
@@ -382,7 +382,7 @@ let make = (
 
   let {allFilterDimension, dateFilterKeys, currentMetrics, uriConfig, source} = entity
 
-  let enableLoaders = entity.enableLoaders->Belt.Option.getWithDefault(true)
+  let enableLoaders = entity.enableLoaders->Option.getWithDefault(true)
 
   let entityAllMetrics = uriConfig->Array.reduce([], (acc, item) =>
     Array.concat(
@@ -400,7 +400,7 @@ let make = (
     let chartType =
       getChartCompFilters->LogicUtils.getString(
         "chartType",
-        entity.chartTypes->Belt.Array.get(0)->Belt.Option.getWithDefault(Line)->chartMapper,
+        entity.chartTypes->Belt.Array.get(0)->Option.getWithDefault(Line)->chartMapper,
       )
     let chartTopMetric =
       getChartCompFilters->LogicUtils.getString("chartTopMetric", currentTopMatrix)
@@ -416,10 +416,7 @@ let make = (
     } else if cardinalityArr->Array.includes("TOP_5") {
       dict->Dict.set("cardinality", "TOP_5")
     } else {
-      dict->Dict.set(
-        "cardinality",
-        cardinalityArr->Belt.Array.get(0)->Belt.Option.getWithDefault(""),
-      )
+      dict->Dict.set("cardinality", cardinalityArr->Belt.Array.get(0)->Option.getWithDefault(""))
     }
     chartTypeArr->Array.includes(chartType)
       ? dict->Dict.set("chartType", chartType)
@@ -430,10 +427,7 @@ let make = (
     } else if chartMatrixArr->Array.includes(currentTopMatrix) {
       dict->Dict.set("chartTopMetric", currentTopMatrix)
     } else {
-      dict->Dict.set(
-        "chartTopMetric",
-        chartMatrixArr->Belt.Array.get(0)->Belt.Option.getWithDefault(""),
-      )
+      dict->Dict.set("chartTopMetric", chartMatrixArr->Belt.Array.get(0)->Option.getWithDefault(""))
     }
 
     if chartMatrixArr->Array.includes(chartBottomMetric) {
@@ -443,7 +437,7 @@ let make = (
     } else {
       dict->Dict.set(
         "chartBottomMetric",
-        chartMatrixArr->Belt.Array.get(0)->Belt.Option.getWithDefault(""),
+        chartMatrixArr->Belt.Array.get(0)->Option.getWithDefault(""),
       )
     }
 
@@ -560,13 +554,13 @@ let make = (
 
   React.useEffect2(() => {
     setGranularity(prev => {
-      current_granularity->Array.includes(prev->Belt.Option.getWithDefault(""))
+      current_granularity->Array.includes(prev->Option.getWithDefault(""))
         ? prev
         : current_granularity->Belt.Array.get(0)
     })
     None
   }, (startTimeFromUrl, endTimeFromUrl))
-  let selectedTabStr = selectedTab->Belt.Option.getWithDefault([])->Array.joinWith("")
+  let selectedTabStr = selectedTab->Option.getWithDefault([])->Array.joinWith("")
 
   let updatedChartConfigArr = React.useMemo7(() => {
     uriConfig->Array.map(item => {
@@ -583,10 +577,7 @@ let make = (
         )
         ->Dict.fromArray
       let activeTab =
-        selectedTab
-        ->Belt.Option.getWithDefault([])
-        ->Belt.Array.get(0)
-        ->Belt.Option.getWithDefault("")
+        selectedTab->Option.getWithDefault([])->Belt.Array.get(0)->Option.getWithDefault("")
       let granularity = if activeTab === "run_date" {
         "G_ONEHOUR"->Some
       } else if activeTab === "run_week" {
@@ -636,7 +627,7 @@ let make = (
             url: item.uri,
             body: item.timeSeriesBody(chartconfig),
             legendBody: ?(
-              chartconfig.groupByNames->Belt.Option.getWithDefault([])->Array.length === 1
+              chartconfig.groupByNames->Option.getWithDefault([])->Array.length === 1
                 ? legendBody
                 : None
             ),
@@ -655,12 +646,12 @@ let make = (
   let (groupKeyFromTab, titleKey) = React.useMemo1(() => {
     switch (tabTitleMapper, selectedTab) {
     | (Some(dict), Some(arr)) => {
-        let groupKey = arr->Belt.Array.get(0)->Belt.Option.getWithDefault("")
-        (groupKey, dict->Dict.get(groupKey)->Belt.Option.getWithDefault(groupKey))
+        let groupKey = arr->Belt.Array.get(0)->Option.getWithDefault("")
+        (groupKey, dict->Dict.get(groupKey)->Option.getWithDefault(groupKey))
       }
     | (None, Some(arr)) => (
-        arr->Belt.Array.get(0)->Belt.Option.getWithDefault(""),
-        arr->Belt.Array.get(0)->Belt.Option.getWithDefault(""),
+        arr->Belt.Array.get(0)->Option.getWithDefault(""),
+        arr->Belt.Array.get(0)->Option.getWithDefault(""),
       )
     | _ => ("", "")
     }
@@ -669,7 +660,7 @@ let make = (
   let setRawChartData = (data: array<urlToDataMap>) => {
     let chartData = data->Array.map(mappedData => {
       let rawdata = mappedData.rawData->Array.map(item => {
-        let dict = item->Js.Json.decodeObject->Belt.Option.getWithDefault(Dict.make())
+        let dict = item->Js.Json.decodeObject->Option.getWithDefault(Dict.make())
 
         switch dict->Dict.get("time_range") {
         | Some(jsonObj) => {
@@ -677,7 +668,7 @@ let make = (
 
             switch timeDict->Dict.get("startTime") {
             | Some(startValue) => {
-                let sTime = startValue->Js.Json.decodeString->Belt.Option.getWithDefault("")
+                let sTime = startValue->Js.Json.decodeString->Option.getWithDefault("")
 
                 if sTime->String.length > 0 {
                   let {date, hour, minute, month, second, year} =
@@ -696,14 +687,14 @@ let make = (
         }
 
         selectedTab
-        ->Belt.Option.getWithDefault([])
+        ->Option.getWithDefault([])
         ->Array.forEach(
           tabName => {
             let metric =
               Dict.get(dict, tabName)
-              ->Belt.Option.getWithDefault(""->Js.Json.string)
+              ->Option.getWithDefault(""->Js.Json.string)
               ->Js.Json.decodeString
-              ->Belt.Option.getWithDefault("")
+              ->Option.getWithDefault("")
             let label = metric == "" ? "other" : metric
 
             Dict.set(dict, tabName, label->Js.Json.string)
@@ -713,9 +704,9 @@ let make = (
                 if key->String.includes("amount") {
                   let amount =
                     Dict.get(dict, key)
-                    ->Belt.Option.getWithDefault(Js.Json.number(0.0))
+                    ->Option.getWithDefault(Js.Json.number(0.0))
                     ->Js.Json.decodeNumber
-                    ->Belt.Option.getWithDefault(0.0)
+                    ->Option.getWithDefault(0.0)
 
                   let amount = (amount /. 100.0)->Js.Float.toFixedWithPrecision(~digits=2)
 
@@ -764,13 +755,13 @@ let make = (
     let chartType =
       getChartCompFilters->LogicUtils.getString(
         "chartType",
-        entity.chartTypes->Belt.Array.get(0)->Belt.Option.getWithDefault(Line)->chartMapper,
+        entity.chartTypes->Belt.Array.get(0)->Option.getWithDefault(Line)->chartMapper,
       )
     if (
       startTimeFromUrl !== "" &&
       endTimeFilterKey !== "" &&
-      (granularity->Belt.Option.isSome || chartType !== "Line Chart") &&
-      current_granularity->Array.includes(granularity->Belt.Option.getWithDefault(""))
+      (granularity->Option.isSome || chartType !== "Line Chart") &&
+      current_granularity->Array.includes(granularity->Option.getWithDefault(""))
     ) {
       setChartLoading(_ => enableLoaders)
       fetchChartData(updatedChartBody, setRawChartData)
@@ -900,7 +891,7 @@ let make = (
                     let (data, legendData, timeCol) = switch metricsUri {
                     | Some(val) =>
                       switch rawChartData
-                      ->Belt.Option.getWithDefault([])
+                      ->Option.getWithDefault([])
                       ->Array.find(item => item.metricsUrl === val.uri) {
                       | Some(dataVal) => (dataVal.rawData, dataVal.legendData, val.timeCol)
                       | None => ([], [], "")
@@ -996,7 +987,7 @@ let make = (
           let (data, legendData, timeCol) = switch metricsUri {
           | Some(val) =>
             switch rawChartData
-            ->Belt.Option.getWithDefault([])
+            ->Option.getWithDefault([])
             ->Array.find(item => item.metricsUrl === val.uri) {
             | Some(dataVal) => (dataVal.rawData, dataVal.legendData, val.timeCol)
             | None => ([], [], "")
