@@ -16,6 +16,7 @@ export function getVariantValues(a: number, b: number, c: number): void;
 export function addTwo(a: number, b: number): number;
 export function getDescriptionCategory(a: number): void;
 export function getConnectorConfig(a: number, b: number, c: number): void;
+export function getPayoutConnectorConfig(a: number, b: number, c: number): void;
 export function getRequestPayload(a: number, b: number, c: number): void;
 export function getResponsePayload(a: number, b: number): void;
 export function parse(a: number, b: number, c: number): void;
