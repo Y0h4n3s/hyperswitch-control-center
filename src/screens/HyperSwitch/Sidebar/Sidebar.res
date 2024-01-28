@@ -79,7 +79,7 @@ module SidebarItem = {
   let make = (~tabInfo, ~isSelected, ~isExpanded) => {
     let sidebarItemRef = React.useRef(Js.Nullable.null)
     let {getSearchParamByLink} = React.useContext(UserPrefContext.userPrefContext)
-    let getSearchParamByLink = link => getSearchParamByLink(Js.String.substr(link, ~from=0))
+    let getSearchParamByLink = link => getSearchParamByLink(String.substringToEnd(link, ~start=0))
 
     let selectedClass = if isSelected {
       // selected border design and clicked for home and processor!
@@ -120,7 +120,7 @@ module SidebarItem = {
 
     | RemoteLink(tabOption) => {
         let {name, icon, link, access, ?remoteIcon} = tabOption
-        let (remoteUi, link) = if remoteIcon->Belt.Option.getWithDefault(false) {
+        let (remoteUi, link) = if remoteIcon->Option.getWithDefault(false) {
           (<Icon name="external-link-alt" size=14 className="ml-3" />, link)
         } else {
           (React.null, `${link}${getSearchParamByLink(link)}`)
@@ -151,9 +151,9 @@ module SidebarItem = {
               <SidebarOption name icon isExpanded isSelected />
               <UIUtils.RenderIf condition={isExpanded}>
                 <Icon
-                  size={iconSize->Belt.Option.getWithDefault(26)}
+                  size={iconSize->Option.getWithDefault(26)}
                   name=iconTag
-                  className={`ml-2 ${iconStyles->Belt.Option.getWithDefault("w-26 h-26")}`}
+                  className={`ml-2 ${iconStyles->Option.getWithDefault("w-26 h-26")}`}
                 />
               </UIUtils.RenderIf>
             </div>
@@ -210,12 +210,12 @@ module NestedSidebarItem = {
                 onClick={_ => isMobileView ? setIsSidebarExpanded(_ => false) : ()} //second suboption
                 className={`${textColor} relative overflow-hidden flex flex-row font-normal items-center cursor-pointer ${paddingClass} ${selectedClass}`}>
                 <SidebarSubOption name isSectionExpanded isSelected isSideBarExpanded>
-                  <UIUtils.RenderIf condition={iconTag->Belt.Option.isSome && isSideBarExpanded}>
+                  <UIUtils.RenderIf condition={iconTag->Option.isSome && isSideBarExpanded}>
                     <div className=linkTagPadding>
                       <Icon
-                        size={iconSize->Belt.Option.getWithDefault(26)}
-                        name={iconTag->Belt.Option.getWithDefault("")}
-                        className={iconStyles->Belt.Option.getWithDefault("w-26 h-26")}
+                        size={iconSize->Option.getWithDefault(26)}
+                        name={iconTag->Option.getWithDefault("")}
+                        className={iconStyles->Option.getWithDefault("w-26 h-26")}
                       />
                     </div>
                   </UIUtils.RenderIf>
@@ -337,7 +337,7 @@ module SidebarNestedSection = {
     let (isSectionExpanded, setIsSectionExpanded) = React.useState(_ => false)
     let (isElementShown, setIsElementShown) = React.useState(_ => false)
 
-    let isAnySubItemSelected = section.links->Array.find(isSubLevelItemSelected)->Js.Option.isSome
+    let isAnySubItemSelected = section.links->Array.find(isSubLevelItemSelected)->Option.isSome
 
     React.useEffect2(() => {
       if isSectionExpanded {

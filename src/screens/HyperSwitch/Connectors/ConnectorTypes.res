@@ -212,3 +212,5 @@ type connectorPayload = {
   frm_configs?: array<frm_config>,
   status: string,
 }
+
+type processors = FRMPlayer | Connector | PayoutConnector

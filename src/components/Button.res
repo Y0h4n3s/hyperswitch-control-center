@@ -362,6 +362,9 @@ let make = (
   ~customBackColor=?,
   ~isPhoneDropdown=false,
   ~showBtnTextToolTip=false,
+  ~showTooltip=false,
+  ~tooltipText=?,
+  ~toolTipPosition=ToolTip.Top,
 ) => {
   let parentRef = React.useRef(Js.Nullable.null)
   let dummyRef = React.useRef(Js.Nullable.null)
@@ -384,7 +387,7 @@ let make = (
   }
 
   let buttonSize: buttonSize =
-    buttonSize->Belt.Option.getWithDefault(
+    buttonSize->Option.getWithDefault(
       MatchMedia.useMatchMedia("(max-width: 800px)") ? Small : Medium,
     )
 
@@ -421,7 +424,7 @@ let make = (
     }
   }
 
-  let heightClass = customHeightClass->Belt.Option.getWithDefault({
+  let heightClass = customHeightClass->Option.getWithDefault({
     switch buttonSize {
     | XSmall => "h-fit"
     | Small => "h-fit"
@@ -435,7 +438,7 @@ let make = (
   | _ => "cursor-pointer"
   }
 
-  let paddingClass = customPaddingClass->Belt.Option.getWithDefault(
+  let paddingClass = customPaddingClass->Option.getWithDefault(
     switch buttonSize {
     | XSmall => "py-3 px-4"
     | Small =>
@@ -449,7 +452,7 @@ let make = (
     },
   )
 
-  let textPaddingClass = customTextPaddingClass->Belt.Option.getWithDefault(
+  let textPaddingClass = customTextPaddingClass->Option.getWithDefault(
     switch buttonSize {
     | XSmall => "px-1"
     | Small => "px-1"
@@ -458,7 +461,7 @@ let make = (
     },
   )
 
-  let textSize = customTextSize->Belt.Option.getWithDefault(
+  let textSize = customTextSize->Option.getWithDefault(
     switch buttonSize {
     | XSmall => "text-fs-11"
     | Small => "text-fs-13"
@@ -470,7 +473,7 @@ let make = (
   let ellipsisClass = ellipsisOnly ? "truncate" : ""
   let ellipsisParentClass = ellipsisOnly ? "max-w-[250px] md:max-w-xs" : ""
 
-  let iconSize = customIconSize->Belt.Option.getWithDefault(
+  let iconSize = customIconSize->Option.getWithDefault(
     switch buttonSize {
     | XSmall => 12
     | Small => 14
@@ -495,7 +498,7 @@ let make = (
   | Large => ""
   }
 
-  let iconMargin = customIconMargin->Belt.Option.getWithDefault(
+  let iconMargin = customIconMargin->Option.getWithDefault(
     switch buttonSize {
     | XSmall
     | Small => "ml-1"
@@ -657,7 +660,7 @@ let make = (
   | _ => "text-sm font-medium leading-5"
   }
 
-  let textId = text->Belt.Option.getWithDefault("")
+  let textId = text->Option.getWithDefault("")
   let iconId = switch leftIcon {
   | FontAwesome(iconName)
   | Euler(iconName) => iconName
@@ -679,11 +682,10 @@ let make = (
   let relativeClass = isRelative ? "relative" : ""
   let conditionalButtonStyles = `${allowButtonTextMinWidth
       ? "min-w-min"
-      : ""} ${customBackColor->Belt.Option.getWithDefault(
+      : ""} ${customBackColor->Option.getWithDefault(
       backColor,
-    )} ${customRoundedClass->Belt.Option.getWithDefault(roundedClass)}`
-
-  let newThemeGap = ""
+    )} ${customRoundedClass->Option.getWithDefault(roundedClass)}`
+  let customJustifyStyle = customButtonStyle->String.includes("justify") ? "" : "justify-center"
 
   <AddDataAttributes attributes=[(dataAttrKey, dataAttrStr)]>
     <button
@@ -696,9 +698,7 @@ let make = (
           e->ReactEvent.Keyboard.preventDefault
         }
       }}
-      className={`flex group ${customButtonStyle->String.includes("justify")
-          ? ""
-          : "justify-center"} ${relativeClass} ${heightClass} ${newThemeGap} ${conditionalButtonStyles} items-center ${borderStyle}  ${textColor} ${cursorType} ${paddingClass} ${lengthStyle} ${customButtonStyle}  ${customTextOverFlowClass}`}
+      className={`flex group ${customJustifyStyle} ${relativeClass} ${heightClass} ${conditionalButtonStyles} items-center ${borderStyle}  ${textColor} ${cursorType} ${paddingClass} ${lengthStyle} ${customButtonStyle}  ${customTextOverFlowClass}`}
       onClick=handleClick>
       {if buttonState == Loading {
         <span className={iconPadding}>
@@ -727,7 +727,7 @@ let make = (
       }}
       {switch text {
       | Some(textStr) =>
-        if textStr !== "" {
+        if !(textStr->LogicUtils.isEmptyString) {
           let btnContent =
             <AddDataAttributes attributes=[("data-button-text", textStr)]>
               <div
@@ -739,10 +739,11 @@ let make = (
           if showBtnTextToolTip {
             <div className=ellipsisParentClass>
               <ToolTip
-                description=textStr
+                description={tooltipText->Option.getWithDefault("")}
                 toolTipFor=btnContent
                 contentAlign=Default
                 justifyClass="justify-start"
+                toolTipPosition
               />
             </div>
           } else {
@@ -766,7 +767,7 @@ let make = (
       }}
       {switch buttonRightText {
       | Some(text) =>
-        <UIUtils.RenderIf condition={text !== ""}>
+        <UIUtils.RenderIf condition={!(text->LogicUtils.isEmptyString)}>
           <span className="text-jp-2-light-primary-600 font-semibold text-fs-14">
             {React.string(text)}
           </span>
