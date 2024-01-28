@@ -35,6 +35,7 @@ let connectorList: array<connectorName> = [
   CHECKOUT,
   COINBASE,
   CREDITBANCO,
+  PAYRABBIT,
   CRYPTOPAY,
   CYBERSOURCE,
   DLOCAL,
@@ -73,6 +74,8 @@ let connectorListForLive: array<connectorName> = [
   ADYEN,
   PAYPAL,
   BANKOFAMERICA,
+  CREDITBANCO,
+  PAYRABBIT,
   BLUESNAP,
   BRAINTREE,
   CHECKOUT,
@@ -126,6 +129,10 @@ let stripeInfo = {
       testExpectedFormat: "Secret key should have the prefix sk_test_",
     },
   ],
+}
+
+let payrabbitInfo = {
+  description: "PayRabbit is a payment processor that allows businesses to accept credit card payments securely and conveniently.",
 }
 
 let creditbancoInfo = {
@@ -354,6 +361,7 @@ let bankOfAmericaInfo = {
 
 let getConnectorNameString = connector => {
   switch connector {
+  | PAYRABBIT => "payrabbit"
   | CREDITBANCO => "creditbanco"
   | ADYEN => "adyen"
   | CHECKOUT => "checkout"
@@ -412,6 +420,7 @@ let getConnectorNameString = connector => {
 
 let getConnectorNameTypeFromString = connector => {
   switch connector {
+  | "payrabbit" => PAYRABBIT
   | "creditbanco" => CREDITBANCO
   | "adyen" => ADYEN
   | "checkout" => CHECKOUT
@@ -470,6 +479,7 @@ let getConnectorNameTypeFromString = connector => {
 
 let getConnectorInfo = (connector: connectorName) => {
   switch connector {
+  | PAYRABBIT => payrabbitInfo
   | CREDITBANCO => creditbancoInfo
   | STRIPE => stripeInfo
   | ADYEN => adyenInfo

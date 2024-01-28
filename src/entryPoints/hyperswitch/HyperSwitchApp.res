@@ -111,7 +111,7 @@ let make = () => {
       if featureFlagDetails.permissionBasedModule {
         let _ = await fetchPermissions()
       }
-
+      Js.log(window)
       if userPermissionJson.merchantConnectorAccountRead === Access {
         let _ = await Window.connectorWasmInit()
         let _ = await fetchConnectorListResponse()
